@@ -1,0 +1,1782 @@
+openapi: 3.0.0
+info:
+  title: MENTA Clone
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.0.0
+servers:
+  - url: http://localhost:8000
+    description: ExpressAPIローカルサーバー
+tags:
+  - name: menters
+    description: メンター登録に必要な情報
+  - name: plans
+    description: 購入できるプラン
+  - name: posts
+    description: 記事投稿
+  - name: comments
+    description: 投稿に対してのコメント
+  - name: tags
+    description: 様々なモデルに紐付けられるハッシュタグ
+  - name: careers
+    description: 経歴
+  - name: skills
+    description: スキル
+  - name: offers
+    description: メンターの募集
+  - name: messages
+    description: ユーザー同士のメッセージ
+  - name: reviews
+    description: プラン契約後のメンターに対してのレビュー
+  - name: users
+    description: ユーザー
+  - name: follows
+    description: ユーザーのフォロー
+  - name: subscriptions
+    description: 定額制契約
+  - name: notifications
+    description: 通知
+  - name: access_log
+    description: アクセスログ
+paths:
+  /menters:
+    get:
+      summary: Get all menters
+      tags:
+        - menters
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menter'
+    post:
+      summary: メンタープランの作成
+      tags:
+        - menters
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menter'
+  /menters/{menterId}:
+    get:
+      summary: Get all menters
+      tags:
+        - menters
+      parameters:
+        - in: path
+          name: menterId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the plan to get
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menter'
+  /menters/{menterId}/info:
+    get:
+      summary: 基本情報
+      tags:
+        - menters
+      parameters:
+        - in: path
+          name: menterId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the plan to get
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menter'
+  /plans:
+    get:
+      summary: プランの一覧取得
+      tags:
+        - plans
+      parameters:
+        - in: query
+          name: menterId
+          schema:
+            type: integer
+          required: false
+          description: 指定されたメンタープランに紐付いているプラン取得
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+    post:
+      summary: プランの作成
+      tags:
+        - plans
+      parameters:
+        - in: query
+          name: menterId
+          schema:
+            type: integer
+          required: true
+          description: 紐付けるメンターID
+        - in: query
+          name: main_image
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: title
+          schema:
+            type: string
+          required: true
+          description: プランのタイトル
+        - in: query
+          name: price
+          schema:
+            type: integer
+          required: true
+          description: 金額
+        - in: query
+          name: description
+          schema:
+            type: string
+          required: true
+          description: プランの概要、説明文
+        - in: query
+          name: is_subscription
+          schema:
+            type: boolean
+          required: true
+          description: 単発かサブスクリプションか
+        - in: query
+          name: status
+          schema:
+            type: integer
+          required: true
+          description: ステータス（中止 or not）
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Plan'
+  /plans/{planId}:
+    get:
+      summary: 特定のプランを取得
+      tags:
+        - plans
+      parameters:
+        - in: path
+          name: planId
+          schema:
+            type: integer
+          required: true
+          description: プランID
+      responses:
+        '200':
+          description: A single plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+    put:
+      summary: プランの編集
+      tags:
+        - plans
+      parameters:
+        - in: path
+          name: planId
+          schema:
+            type: integer
+          required: true
+          description: プランID
+        - in: query
+          name: menterId
+          schema:
+            type: integer
+          required: true
+          description: 紐付けるメンターID
+        - in: query
+          name: main_image
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: title
+          schema:
+            type: string
+          required: true
+          description: プランのタイトル
+        - in: query
+          name: price
+          schema:
+            type: integer
+          required: true
+          description: 金額
+        - in: query
+          name: description
+          schema:
+            type: string
+          required: true
+          description: プランの概要、説明文
+        - in: query
+          name: is_subscription
+          schema:
+            type: boolean
+          required: true
+          description: 単発かサブスクリプションか
+        - in: query
+          name: status
+          schema:
+            type: integer
+          required: true
+          description: ステータス（中止 or not）
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Plan'
+    delete:
+      summary: プランの削除
+      tags:
+        - plans
+      parameters:
+        - in: path
+          name: planId
+          schema:
+            type: integer
+          required: true
+          description: プランID
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Plan'
+  /posts:
+    get:
+      summary: 投稿の一覧取得
+      tags:
+        - posts
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: フリーキーワードで絞り込む
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: ページネーションのページ数
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: ページネーションの1ページの表示数
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+    post:
+      summary: 投稿の作成
+      tags:
+        - posts
+      parameters:
+        - in: query
+          name: tags
+          schema:
+            type: array
+            items:
+              type: integer
+          description: 紐付けるタグ
+        - in: query
+          name: title
+          schema:
+            type: string
+          description: タイトル
+        - in: query
+          name: body
+          schema:
+            type: string
+          description: 本文
+        - in: query
+          name: category_id
+          schema:
+            type: integer
+          description: 紐付けるカテゴリID
+        - in: query
+          name: status
+          schema:
+            type: integer
+          description: ステータス（公開or非公開）
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+  /posts/{postId}:
+    get:
+      summary: 特定の投稿を取得
+      tags:
+        - posts
+      parameters:
+        - in: path
+          name: postId
+          schema:
+            type: integer
+          required: true
+          description: 取得したい投稿ID
+      responses:
+        '200':
+          description: A single plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+  /comments:
+    post:
+      summary: コメントの作成
+      tags:
+        - comments
+      parameters:
+        - in: query
+          name: post_id
+          schema:
+            type: integer
+          required: true
+          description: コメントする投稿ID
+        - in: query
+          name: body
+          schema:
+            type: string
+          required: true
+          description: コメント内容
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+  /comments/{commentId}/reply:
+    post:
+      summary: コメントの返信
+      tags:
+        - comments
+      parameters:
+        - in: path
+          name: commentId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the plan to get
+        - in: query
+          name: body
+          schema:
+            type: string
+          required: true
+          description: コメント内容
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+  /comments/{commentId}/like:
+    post:
+      summary: コメントのいいね
+      tags:
+        - comments
+      parameters:
+        - in: path
+          name: commentId
+          schema:
+            type: integer
+          required: true
+          description: いいねするコメントID
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+    delete:
+      summary: コメントのいいね取り消し
+      tags:
+        - comments
+      parameters:
+        - in: path
+          name: commentId
+          schema:
+            type: integer
+          required: true
+          description: いいね取り消すコメントID
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+  /tags:
+    get:
+      summary: タグ一覧取得（タグ付けする際のリアルタイム検索）
+      tags:
+        - tags
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+          required: false
+          description: 文字列とtags.nameが一致するもの取得
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+    post:
+      summary: タグ作成
+      tags:
+        - tags
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: true
+          description: タグ名
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+  /careers:
+    post:
+      summary: 経歴の作成
+      tags:
+        - careers
+      parameters:
+        - in: query
+          name: description
+          schema:
+            type: string
+          required: true
+          description: 説明
+        - in: query
+          name: start_year
+          schema:
+            type: integer
+          required: true
+          description: 開始年
+        - in: query
+          name: start_month
+          schema:
+            type: integer
+          required: true
+          description: 開始月
+        - in: query
+          name: end_year
+          schema:
+            type: integer
+          required: true
+          description: 終了年
+        - in: query
+          name: end_month
+          schema:
+            type: integer
+          required: true
+          description: 終了月
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Career'
+  /skills:
+    post:
+      summary: スキルの作成
+      tags:
+        - skills
+      parameters:
+        - in: query
+          name: tag_id
+          schema:
+            type: string
+          required: true
+          description: タグID
+        - in: query
+          name: level
+          schema:
+            type: integer
+          required: true
+          description: スキルレベル
+        - in: query
+          name: experience_years
+          schema:
+            type: integer
+          required: true
+          description: 経験年数
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+  /offers:
+    get:
+      summary: 募集を一覧取得
+      tags:
+        - offers
+      parameters:
+        - in: query
+          name: category
+          schema:
+            type: integer
+          description: カテゴリーで絞り込む
+        - in: query
+          name: tag
+          schema:
+            type: integer
+          description: スキルで絞り込む
+        - in: query
+          name: price
+          schema:
+            type: integer
+          description: 予算で絞り込む
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: フリーキーワードで絞り込む
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: ページネーションのページ数
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: ページネーションの1ページの表示数
+        - in: query
+          name: t
+          schema:
+            type: string
+          description: meのときにログインユーザーの募集を取得
+      responses:
+        '200':
+          description: A list of offers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Offer'
+    post:
+      summary: 募集を作成
+      tags:
+        - offers
+      parameters:
+        - in: query
+          name: title
+          schema:
+            type: string
+          required: true
+          description: 募集のタイトル
+        - in: query
+          name: description
+          schema:
+            type: string
+          required: true
+          description: 募集の説明
+        - in: query
+          name: category_id
+          schema:
+            type: integer
+          required: true
+          description: 紐付けるカテゴリID
+        - in: query
+          name: price
+          schema:
+            type: integer
+          required: true
+          description: 予算
+        - in: query
+          name: is_subscription
+          schema:
+            type: boolean
+          required: true
+          description: サブスクリプションか単発か
+        - in: query
+          name: status
+          schema:
+            type: integer
+          required: true
+          description: ステータス（募集中or中止）
+      responses:
+        '200':
+          description: A list of offers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Offer'
+  /offers/{offerId}:
+    get:
+      summary: 特定の募集を取得
+      tags:
+        - offers
+      parameters:
+        - in: path
+          name: offerId
+          schema:
+            type: integer
+          required: true
+          description: 募集ID
+      responses:
+        '200':
+          description: A list of offers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Offer'
+  /messages:
+    get:
+      summary: メッセージの一覧取得（自分に宛てられたメッセージのみ）
+      tags:
+        - messages
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: メッセージ相手
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+    post:
+      summary: メッセージの作成
+      tags:
+        - messages
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: メッセージ相手ユーザーID
+        - in: query
+          name: body
+          schema:
+            type: string
+          required: true
+          description: メッセージ内容
+        - in: query
+          name: offer_id
+          schema:
+            type: integer
+          required: false
+          description: 紐付ける募集ID
+        - in: query
+          name: menter_id
+          schema:
+            type: integer
+          required: false
+          description: 紐付けるメンターID
+        - in: query
+          name: file
+          schema:
+            type: string
+          required: false
+          description: 添付したファイルパス
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Message'
+  /messages/{messageId}/read:
+    post:
+      summary: 既読処理
+      tags:
+        - messages
+      parameters:
+        - in: path
+          name: messageId
+          schema:
+            type: integer
+          required: true
+          description: 既読にするメッセージID
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Message'
+  /reviews:
+    get:
+      summary: レビュー一覧取得
+      tags:
+        - reviews
+      parameters:
+        - in: query
+          name: menterId
+          schema:
+            type: integer
+          required: false
+          description: メンターに寄せられたレビュー取得
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+    post:
+      summary: レビューの作成
+      tags:
+        - reviews
+      parameters:
+        - in: query
+          name: menterId
+          schema:
+            type: integer
+          required: true
+          description: 紐付けるメンターID
+        - in: query
+          name: body
+          schema:
+            type: string
+          required: true
+          description: レビュー内容
+        - in: query
+          name: rank
+          schema:
+            type: integer
+          required: true
+          description: 5段階評価
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+  /users:
+    get:
+      summary: ユーザー一覧取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{userId}:
+    get:
+      summary: 特定のユーザーを取得
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: ユーザーID
+      responses:
+        '200':
+          description: A single plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/profile:
+    get:
+      summary: 自分のプロフィールを取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分のプロフィールを編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/email:
+    get:
+      summary: 自分のメール通知設定を取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分のメール通知設定を編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/payment:
+    get:
+      summary: 自分の支払情報を取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分の支払情報を取得を編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/identification:
+    get:
+      summary: 自分の本人確認を取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分の本人確認を編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/bank_account:
+    get:
+      summary: 自分の銀行口座を取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plan'
+    post:
+      summary: 自分の銀行口座を編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/nda_contract:
+    get:
+      summary: 自分のNDA契約情報を取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分のNDA契約情報を編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/password:
+    get:
+      summary: 自分のパスワードを取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分のパスワードを編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/sns_account:
+    get:
+      summary: 自分のSNSアカウントを取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分のSNSアカウントを編集
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/introduce:
+    get:
+      summary: 自分の紹介コードを取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/scores:
+    get:
+      summary: 自分のスコアを取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: 自分のスコアを登録
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/analytics:
+    get:
+      summary: 自分の閲覧回数を取得
+      tags:
+        - users
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  
+  /signup:
+    post:
+      summary: 新規会員登録
+      tags:
+        - users
+      parameters:
+        - in: query
+          name: email
+          schema:
+            type: string
+          required: true
+          description: メールアドレス
+        - in: query
+          name: password
+          schema:
+            type: string
+          required: true
+          description: パスワード
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /signin:
+    post:
+      summary: ログイン処理
+      tags:
+        - users
+      parameters:
+        - in: query
+          name: email
+          schema:
+            type: string
+          required: true
+          description: メールアドレス
+        - in: query
+          name: password
+          schema:
+            type: string
+          required: true
+          description: パスワード
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /signout:
+    post:
+      summary: ログアウト処理
+      tags:
+        - users
+      parameters:
+        - in: query
+          name: menterId
+          schema:
+            type: integer
+          required: true
+          description: メンターに寄せられたレビュー取得
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /follows:
+    get:
+      summary: フォロワー/フォロー取得
+      tags:
+        - follows
+      parameters:
+        - in: query
+          name: follower
+          schema:
+            type: integer
+          required: true
+          description: フォロワーかフォローか
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+  /follows/{userId}:
+    post:
+      summary: フォローする
+      tags:
+        - follows
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: フォローされるユーザー
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+    delete:
+      summary: フォローを取り消す
+      tags:
+        - follows
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: フォロー解除されるユーザー
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Follow'
+  /subscription:
+    post:
+      summary: サブスクリプション契約
+      tags:
+        - subscriptions
+      parameters:
+        - in: query
+          name: planId
+          schema:
+            type: integer
+          required: true
+          description: 契約するプラン
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subscription'
+  /notifications:
+    get:
+      summary: 通知を一覧取得
+      tags:
+        - notifications
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+  /notifications/{notificationId}:
+    post:
+      summary: 通知の既読処理
+      tags:
+        - notifications
+      parameters:
+        - in: path
+          name: notificationId
+          schema:
+            type: integer
+          required: true
+          description: 既読処理する通知
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+  /access_log:
+    post:
+      summary: アクセスログの作成
+      tags:
+        - access_log
+      parameters:
+        - in: query
+          name: path
+          schema:
+            type: string
+          required: true
+          description: パス
+      responses:
+        '200':
+          description: A list of plans.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccessLog'
+
+components:
+#   # Reusable schemas (data models)
+  schemas:
+    User:
+        type: object
+        properties:
+          id:
+            type: integer
+          username:
+            type: string
+          icon:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+          profile:
+            type: string
+          url:
+            type: string
+          twitter_id:
+            type: string
+          facebook_id:
+            type: string
+          instagram_id:
+            type: string
+          github_id:
+            type: string
+          interesting_category_id:
+            type: integer
+          introduced_code:
+            type: string
+          access_token:
+            type: string
+          deleted_at:
+            type: string
+          created_at:
+            type: string
+          updated_at:
+            type: string
+    Career:
+        type: object
+        properties:
+          id:
+            type: integer
+          description:
+            type: string
+          start_year:
+            type: integer
+          start_month:
+            type: integer
+          end_year:
+            type: integer
+          end_month:
+            type: integer
+          user_id:
+            type: integer
+          deleted_at:
+            type: string
+          created_at:
+            type: string
+          updated_at:
+            type: string
+    Skill:
+      type: object
+      properties:
+        id:
+          type: integer
+        tag_id:
+          type: integer
+        user_id:
+          type: integer
+        level:
+          type: integer
+        experience_years:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Offer:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        title:
+          type: string
+        category_id:
+          type: integer
+        description:
+          type: string
+        price:
+          type: integer
+        is_subscription:
+          type: boolean
+        status:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
+        category_id:
+          type: integer
+        status:
+          type: integer
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        post_id:
+          type: integer
+        body:
+          type: string
+        comment_replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentReply'
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    CommentReply:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        comment_id:
+          type: integer
+        body:
+          type: string
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Menter:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        title:
+          type: string
+        main_image:
+          type: string
+        sub_image:
+          type: string
+        category_id:
+          type: integer
+        description:
+          type: string
+        status:
+          type: integer
+        contract_status:
+          type: integer
+        plans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+        menter_id:
+          type: integer
+        title:
+          type: string
+        price:
+          type: integer
+        main_image:
+          type: string
+        description:
+          type: string
+        is_subscription:
+          type: boolean
+        status:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        sender_id:
+          type: integer
+        receiver_id:
+          type: integer
+        body:
+          type: string
+        offer_id:
+          type: integer
+        menter_id:
+          type: integer
+        file:
+          type: string
+        read:
+          type: boolean
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Follow:
+      type: object
+      properties:
+        id:
+          type: integer
+        followed_id:
+          type: integer
+        follower_id:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+        sender_id:
+          type: integer
+        receiver_id:
+          type: integer
+        body:
+          type: string
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        menter_id:
+          type: integer
+        body:
+          type: string
+        rank:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    ReviewReply:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        review_id:
+          type: integer
+        body:
+          type: string
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Score:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        value:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    AccessLog:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        menter_id:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        plan_id:
+          type: integer
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    Payment:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        plan_id:
+          type: integer
+        price:
+          type: integer
+        has_transfered:
+          type: boolean
+        deleted_at:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+
+#   # Reusable path, query, header and cookie parameters
+#   parameters:
+#   # Security scheme definitions (see Authentication)
+#   securitySchemes:
+#   # Reusable request bodies
+#   requestBodies:
+#   # Reusable responses, such as 401 Unauthorized or 400 Bad Request
+#   responses:
+#   # Reusable response headers
+#   headers:
+#   # Reusable examples
+#   examples:
+#   # Reusable links
+#   links:
+  # Reusable callbacks
+  # callbacks:
