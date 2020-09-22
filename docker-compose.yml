@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  mysql:
+    image: mysql:5.7
+    container_name: menta_db
+    env_file: ./mysql/mysql.env
+    environment:
+      - TZ=Asia/Tokyo
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d/:ro
+      - data_menta:/var/lib/mysql
+    networks:
+      - default
+
+  api:
+    image: node:12
+    container_name: menta_api
+    env_file: ./api/api.env
+    environment:
+      - TZ=Asia/Tokyo
+      - DEBUG=app:*
+    tty: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    command: npm start
+    networks:
+      - default
+    depends_on:
+      - mysql
+
+networks:
+  default:
+
+volumes:
+  data_menta:
