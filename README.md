@@ -57,7 +57,7 @@ menta.workというメンターマッチングサービスのクローンを作�
     npx sequelize-cli db:migrate
     ```
 
-7. [localhost:3000](localhost:3000)にアクセス
+7. localhost:3000 にアクセス
 
 ### よく使うコマンド
 - Dockerコンテナの起動
