@@ -23,25 +23,37 @@ menta.workというメンターマッチングサービスのクローンを作�
 
 ## 環境構築
 
+<<<<<<< HEAD
 ### 初期設定
-1. Dockerコンテナの起動
+1. クローン
+    ```
+    git clone https://github.com/dotval/menta_clone.git
+    ```
+
+2. envファイルの作成
+    ```
+    cp mysql/mysql.env.example mysql/mysql.env
+    ```
+    ```
+    cp api/api.env.example api/api.env
+    ```
+
+3. コンテナ立ち上げ
     ```
     docker-compose up -d
     ```
-
-2. Node.jsのコンテナに入る(これをやってからnpm関係のコマンドを打つ)
+4. Node.jsのコンテナに入る(これをやってからnpm関係のコマンドを打つ)
     ```
     docker exec -it menta_api /bin/sh
     ```
 
-3. データベースのマイグレート
+5. データベースのマイグレート
     ```
     npx sequelize-cli db:migrate
     ```
-4. [localhost:3000](localhost:3000)にアクセス
+6. [localhost:3000](localhost:3000)にアクセス
 
 ### よく使うコマンド
-
 - Dockerコンテナの起動
     ```
     docker-compose up -d
