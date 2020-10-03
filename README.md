@@ -23,8 +23,34 @@ menta.workというメンターマッチングサービスのクローンを作�
 
 ## 環境構築
 
-仮
+### 初期設定
+1. Dockerコンテナの起動
+    ```
+    docker-compose up -d
+    ```
 
-```
-docker-compose up -d
-```
+2. Node.jsのコンテナに入る(これをやってからnpm関係のコマンドを打つ)
+    ```
+    docker exec -it menta_api /bin/sh
+    ```
+
+3. データベースのマイグレート
+    ```
+    npx sequelize-cli db:migrate
+    ```
+4. [localhost:3000](localhost:3000)にアクセス
+
+### よく使うコマンド
+
+- Dockerコンテナの起動
+    ```
+    docker-compose up -d
+    ```
+- Dockerコンテナの終了
+    ```
+    docker-compose down
+    ```
+- Node.jsのコンテナに入る
+    ```
+    docker exec -it menta_api /bin/sh
+    ```
