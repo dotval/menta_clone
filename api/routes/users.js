@@ -1,5 +1,9 @@
 var express = require('express');
-var router = express.Router();48
+var router = express.Router();
+const db = require('../models/index.js');
+const user = require('../models/user.js');
+const users = db.user;
+const usersController =require('../controllers/usersController');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -7,12 +11,11 @@ router.get('/', function(req, res, next) {
 });
 
 // /users/userId
-router.get('/:id', function(req, res, next) {
-  const id = req.params.id;
-
-  
-  res.json(req.params.id); 
-});
-
-
+// router.get('/:id', function(req, res, next) {
+//   const id = req.params.id;
+//   // users.findOne({where:{id:id}}).then(users =>{
+//   //   res.json(users);
+//   // });
+// });
+router.get('/:id',usersController.index);
 module.exports = router;
