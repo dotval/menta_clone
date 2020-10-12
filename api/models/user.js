@@ -38,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.skill, {
       foreignKey: 'user_id',
     });
+    user.hasMany(models.career, {
+      foreignKey: 'user_id',
+    });
   }
   return user;
 };
