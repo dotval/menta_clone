@@ -8,6 +8,8 @@ router.get('/', function(req, res, next) {
 
 // /users/userId
 router.get('/:id', function(req, res, next) {
+  const id = req.params.id;
+
   
   res.json(req.params.id); 
 });
