@@ -41,6 +41,12 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.career, {
       foreignKey: 'user_id',
     });
+    user.hasOne(models.nda_contract, {
+      foreignKey: 'user_id',
+    });
+    user.hasOne(models.score, {
+      foreignKey: 'user_id',
+    });
   }
   return user;
 };
