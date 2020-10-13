@@ -12,9 +12,22 @@ const follow = db.follow;
 const view_menter_count = db.view_menter_count;
 const review = db.review;
 
+// identification  bool
+
 exports.index = (req, res) => {
     const id = req.params.id;
-    users.findOne({ where: { id: id }, include: [{ model: skill, required: false }, { model: career, required: false }, { model: nda, required: false }, { model: score, required: false }, { model: follow, required: false },{ model: menter, required: false, include: [{ model: review, required: false, limit: 5 ,include:[{model:users,required: false }]}] },{ model: menter, required: false, include: [{ model: plan, required: false, limit: 1 }] }, { model: menter, required: false, include: [{ model:view_menter_count,required: false}]}]}).then((users) => {
+    users.findOne({
+        where: { id: id },
+        include: [
+            { model: skill, required: false ,attributes: ['tag_id','level','experience_years']}, 
+            { model: career, required: false ,attributes: ['description','start_year','start_month','end_year','end_mouth']}, 
+            { model: nda, required: false }, 
+            { model: score, required: false,attributes: ['value'] }, 
+            { model: follow, required: false}, 
+            { model: menter, required: false, include: [{ model: review, required: false, limit: 5,attributes: ['id','body','updated_at'], include: [{ model: users, required: false,attributes: ['name','icon'] }] }] }, 
+            { model: menter, required: false, include: [{ model: plan, required: false, limit: 1 ,attributes:['id','title']}] }, 
+            { model: menter, required: false, include: [{ model: view_menter_count, required: false }] }]
+    }).then((users) => {
         if (users.nda_contract) {
             users.nda_contract = true
         }
@@ -26,6 +39,7 @@ exports.index = (req, res) => {
             skills: users.skills,
             careers: users.careers,
             nda_contract: users.nda_contract,
+            identification: users.identification,
             score: users.score,
             recent_login: users.updated_at,
             plan: users.menter.plans,

@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     interesting_category_id: DataTypes.INTEGER,
     introduced_code: DataTypes.STRING,
     access_token: DataTypes.STRING,
+    identification:DataTypes.BOOLEAN,
     deleted_at: DataTypes.DATE
   }, {
     sequelize,

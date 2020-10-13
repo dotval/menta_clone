@@ -51,6 +51,9 @@ module.exports = {
       access_token: {
         type: Sequelize.STRING
       },
+      identification:{
+        type: Sequelize.BOOLEAN
+      },
       deleted_at: {
         allowNull: false,
         type: Sequelize.DATE
