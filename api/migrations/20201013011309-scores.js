@@ -2,20 +2,24 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('nda_contracts', {
+    await queryInterface.createTable('scores', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id:{
+      user_id: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      address:{
+      value: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
+      },
+      deleted_at: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       created_at: {
         allowNull: false,
