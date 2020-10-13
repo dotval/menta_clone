@@ -41,10 +41,16 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.career, {
       foreignKey: 'user_id',
     });
+    user.hasMany(models.follow, {
+      foreignKey: 'followed_id',
+    });
     user.hasOne(models.nda_contract, {
       foreignKey: 'user_id',
     });
     user.hasOne(models.score, {
+      foreignKey: 'user_id',
+    });
+    user.hasOne(models.menter, {
       foreignKey: 'user_id',
     });
   }
