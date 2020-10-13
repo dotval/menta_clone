@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     menter.hasMany(models.view_menter_count, {
       foreignKey: 'menter_id',
     });
+    menter.hasMany(models.review, {
+      foreignKey: 'menter_id',
+    });
   }
   return menter;
 };
