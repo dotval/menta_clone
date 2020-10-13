@@ -9,8 +9,8 @@ const score= db.score;
 
 exports.index = (req, res) => {
     const id = req.params.id;
+    // users.findOne({where:{ id: id },include:[{model: skill,required:false},{model:career,required:false},{model:nda,required:false}]}).then((users) => {
     users.findOne({where:{ id: id },include:[{model: skill,required:false},{model:career,required:false},{model:nda,required:false},{model:score,required:false}]}).then((users) => {
-
         if(users.nda_contract){
             users.nda_contract=true
         }
@@ -22,7 +22,8 @@ exports.index = (req, res) => {
             skills: users.skills,
             careers: users.careers,
             nda_contract:users.nda_contract,
-            score:users.score.value
+            score:users.score,
+            recent_login: users.updated_at,
         }
         res.json(data);
     }).catch(err => {
