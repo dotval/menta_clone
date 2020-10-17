@@ -9,13 +9,9 @@ const usersController =require('../controllers/usersController');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-
-// /users/userId
-// router.get('/:id', function(req, res, next) {
-//   const id = req.params.id;
-//   // users.findOne({where:{id:id}}).then(users =>{
-//   //   res.json(users);
-//   // });
-// });
+router.get('/email', usersController.getEmail);
 router.get('/:id',usersController.index);
+
+
+
 module.exports = router;

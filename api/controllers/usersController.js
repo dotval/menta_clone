@@ -52,3 +52,14 @@ exports.index = (req, res) => {
         res.send(err)
     });
 }
+
+exports.getEmail =(req,res)=>{
+    // const is = Auth.id;
+    const id = 2;
+    users.findOne({where: { id: id },attributes: ['email']})
+    .then((users)=>{
+        res.json(users)
+    }).catch(err =>{
+        res.send(err);
+    })
+}
