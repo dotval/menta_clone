@@ -19,13 +19,13 @@ exports.index = (req, res) => {
     users.findOne({
         where: { id: id },
         include: [
-            { model: skill, required: false ,attributes: ['tag_id','level','experience_years']}, 
-            { model: career, required: false ,attributes: ['description','start_year','start_month','end_year','end_mouth']}, 
-            { model: nda, required: false }, 
-            { model: score, required: false,attributes: ['value'] }, 
-            { model: follow, required: false}, 
-            { model: menter, required: false, include: [{ model: review, required: false, limit: 5,attributes: ['id','body','updated_at'], include: [{ model: users, required: false,attributes: ['name','icon'] }] }] }, 
-            { model: menter, required: false, include: [{ model: plan, required: false, limit: 1 ,attributes:['id','title']}] }, 
+            { model: skill, required: false, attributes: ['tag_id', 'level', 'experience_years'] },
+            { model: career, required: false, attributes: ['description', 'start_year', 'start_month', 'end_year', 'end_mouth'] },
+            { model: nda, required: false },
+            { model: score, required: false, attributes: ['value'] },
+            { model: follow, required: false },
+            { model: menter, required: false, include: [{ model: review, required: false, limit: 5, attributes: ['id', 'body', 'updated_at'], include: [{ model: users, required: false, attributes: ['name', 'icon'] }] }] },
+            { model: menter, required: false, include: [{ model: plan, required: false, limit: 1, attributes: ['id', 'title'] }] },
             { model: menter, required: false, include: [{ model: view_menter_count, required: false }] }]
     }).then((users) => {
         if (users.nda_contract) {
@@ -52,14 +52,23 @@ exports.index = (req, res) => {
         res.send(err)
     });
 }
+exports.nda_contract = (req, res) => {
+    const id = 1;
+    nda.findOne({ where: { user_id: id }, attributes: ['address'] })
+        .then((response) => {
+            res.json(response);
+        }).catch(err => {
+            res.send(err);
+        })
+}
 
-exports.getEmail =(req,res)=>{
+exports.getEmail = (req, res) => {
     // const is = Auth.id;
     const id = 2;
-    users.findOne({where: { id: id },attributes: ['email']})
-    .then((users)=>{
-        res.json(users)
-    }).catch(err =>{
-        res.send(err);
-    })
+    users.findOne({ where: { id: id }, attributes: ['email'] })
+        .then((users) => {
+            res.json(users)
+        }).catch(err => {
+            res.send(err);
+        })
 }
