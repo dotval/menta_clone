@@ -6,8 +6,7 @@ const usersController =require('../controllers/usersController');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-
-// /users/userId
+router.get('/email', usersController.getEmail);
 router.get('/:id',usersController.show);
 
 
