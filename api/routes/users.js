@@ -6,7 +6,14 @@ const usersController =require('../controllers/usersController');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+
+//users/email
 router.get('/email', usersController.getEmail);
+
+//users/nda_contract
+router.get('/nda_contract', usersController.nda_contract);
+
+//users/{id}
 router.get('/:id',usersController.show);
 
 
