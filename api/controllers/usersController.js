@@ -95,6 +95,19 @@ exports.show = (req, res) => {
         res.send(err)
     });
 }
+exports.profile = (req, res) => {
+    const id = 1;
+    users.findOne({
+        where: { id: id },
+        attributes:['name','icon','email','profile','url','twitter_id','facebook_id','instagram_id','github_id'],
+        include: [{ model: career, required: false, attributes: ['description', 'start_year', 'start_month', 'end_year', 'end_mouth'] },
+    ]}).then((response) => {
+        res.json(response);
+    }).catch(err => {
+        res.send(err)
+    });
+}
+
 exports.nda_contract = (req, res) => {
     const id = 1;
     nda.findOne({ where: { user_id: id }, attributes: ['address'] })
