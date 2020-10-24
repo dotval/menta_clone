@@ -99,9 +99,10 @@ exports.profile = (req, res) => {
     const id = 1;
     users.findOne({
         where: { id: id },
-        attributes:['name','icon','email','profile','url','twitter_id','facebook_id','instagram_id','github_id'],
+        attributes: ['name', 'icon', 'email', 'profile', 'url', 'twitter_id', 'facebook_id', 'instagram_id', 'github_id'],
         include: [{ model: career, required: false, attributes: ['description', 'start_year', 'start_month', 'end_year', 'end_mouth'] },
-    ]}).then((response) => {
+        ]
+    }).then((response) => {
         res.json(response);
     }).catch(err => {
         res.send(err)
@@ -118,6 +119,16 @@ exports.nda_contract = (req, res) => {
         })
 }
 
+exports.updateEmail = (req, res) => {
+    const id = 1;
+    const email = req.body.email;
+    users.update({email:email},{where:{id:id}})
+    .then(()=>{
+        res.json({ message: 'success' })
+    }).catch(err =>
+        res.status(500).json({ message: err, })
+    );
+}
 exports.getEmail = (req, res) => {
     // const is = Auth.id;
     const id = 2;
