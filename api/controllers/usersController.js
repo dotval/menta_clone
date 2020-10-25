@@ -143,14 +143,24 @@ exports.getEmail = (req, res) => {
 
 exports.updateProfile = (req, res) => {
     const id = 1;
-    
     try {
-        await users.update({ name: req.body.name, profile: req.body.profile, url: req.body.url, twitter_id: req.body.twitter_id, facebook_id: req.body.facebook_id, instagram_id: req.body.instagram_id, github_id: req.body.github_id }, { where: { id: id } });
-        await career.bulkCreate(req.body.career);
-        await skill.bulkCreate(req.body.skill);
+        users.update({ name: req.body.name, profile: req.body.profile, url: req.body.url, twitter_id: req.body.twitter_id, facebook_id: req.body.facebook_id, instagram_id: req.body.instagram_id, github_id: req.body.github_id }, { where: { id: id } });
+        career.bulkCreate(req.body.career);
+        skill.bulkCreate(req.body.skill);
         res.json({ message: 'success' })
     } catch (error) {
-        res.status(500).json({ message: error})
+        res.status(500).json({ message: error })
     }
+}
+
+exports.patchNda_contract = (req, res) => {
+    const id = 1;
+    const address =req.body.address;
+    nda.update({address:address}, { where: { user_id: id } })
+    .then(() => {
+            res.json({ message: 'success' })
+        }).catch(err =>
+            res.status(500).json({ message: err, })
+        );
 }
 

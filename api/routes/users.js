@@ -22,6 +22,9 @@ router.put('/profile', usersController.updateProfile);
 //users/nda_contract
 router.get('/nda_contract', usersController.getNdaContract);
 
+//users/nda_contract
+router.patch('/nda_contract', usersController.patchNda_contract);
+
 //users/{id}
 router.get('/:id',usersController.getUser);
 
