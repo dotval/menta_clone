@@ -182,3 +182,7 @@ exports.updatePassword = (req, res) => {
     );
 
 }
+
+exports.getIntroduceCode = (req,res) => {
+    return res.send('introcode')
+}
