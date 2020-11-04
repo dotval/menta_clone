@@ -28,6 +28,7 @@ menta.workというメンターマッチングサービスのクローンを作�
 1. クローン
     ```
     git clone https://github.com/dotval/menta_clone.git
+    cd menta_clone
     ```
 
 2. envファイルの作成
@@ -47,11 +48,16 @@ menta.workというメンターマッチングサービスのクローンを作�
     docker exec -it menta_api /bin/sh
     ```
 
-5. データベースのマイグレート
+5. 初期パッケージのインストール
+    ```
+    npm install
+    ```
+6. データベースのマイグレーション
     ```
     npx sequelize-cli db:migrate
     ```
-6. [localhost:3000](localhost:3000)にアクセス
+
+7. [localhost:3000](http://localhost:3000)にアクセス
 
 ### よく使うコマンド
 - Dockerコンテナの起動
