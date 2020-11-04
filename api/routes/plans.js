@@ -10,4 +10,11 @@ router.get('/', function(req, res, next) {
   });
 });
 
+//プラン詳細の取得
+router.get('/:planId', function(req, res, next) {
+  db.plan.findByPk(req.params.planId).then(function(results){
+    res.send(results);
+  });
+});
+
 module.exports = router;
