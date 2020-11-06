@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();48
+const usersController =require('../controllers/usersController');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -7,12 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 // /users/userId
-router.get('/:id', function(req, res, next) {
-  const id = req.params.id;
-
-  
-  res.json(req.params.id); 
-});
+router.get('/:id',usersController.show);
 
 
 module.exports = router;
