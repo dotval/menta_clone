@@ -27,11 +27,33 @@ module.exports = (sequelize, DataTypes) => {
     interesting_category_id: DataTypes.INTEGER,
     introduced_code: DataTypes.STRING,
     access_token: DataTypes.STRING,
+    identification:DataTypes.BOOLEAN,
     deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'user',
     underscored: true,
   });
+
+  user.associate = function(models) {
+    user.hasMany(models.skill, {
+      foreignKey: 'user_id',
+    });
+    user.hasMany(models.career, {
+      foreignKey: 'user_id',
+    });
+    user.hasMany(models.follow, {
+      foreignKey: 'followed_id',
+    });
+    user.hasOne(models.nda_contract, {
+      foreignKey: 'user_id',
+    });
+    user.hasOne(models.score, {
+      foreignKey: 'user_id',
+    });
+    user.hasOne(models.menter, {
+      foreignKey: 'user_id',
+    });
+  }
   return user;
 };

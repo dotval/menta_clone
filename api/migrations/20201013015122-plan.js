@@ -1,58 +1,41 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('plans', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      menter_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      title:{
         allowNull: false,
         type: Sequelize.STRING
       },
-      icon: {
-        type: Sequelize.STRING
+      price: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
-      email: {
+      main_image:{
         allowNull: false,
         type: Sequelize.STRING
       },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      profile: {
+      description:{
         allowNull: false,
         type: Sequelize.TEXT
       },
-      url: {
-        type: Sequelize.STRING
-      },
-      twitter_id: {
-        type: Sequelize.STRING
-      },
-      facebook_id: {
-        type: Sequelize.STRING
-      },
-      instagram_id: {
-        type: Sequelize.STRING
-      },
-      github_id: {
-        type: Sequelize.STRING
-      },
-      interesting_category_id: {
+      is_subscription:{
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      introduced_code: {
-        type: Sequelize.STRING
-      },
-      access_token: {
-        type: Sequelize.STRING
-      },
-      identification:{
-        type: Sequelize.BOOLEAN
+      status:{
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       deleted_at: {
         allowNull: false,
@@ -66,9 +49,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
-  },
+  });
+},
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
   }
 };

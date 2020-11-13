@@ -1,58 +1,45 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('menters', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      user_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      title:{
         allowNull: false,
         type: Sequelize.STRING
       },
-      icon: {
-        type: Sequelize.STRING
-      },
-      email: {
+      main_image:{
         allowNull: false,
         type: Sequelize.STRING
       },
-      password: {
+      sub_image:{
         allowNull: false,
         type: Sequelize.STRING
       },
-      profile: {
+      category_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      description:{
         allowNull: false,
         type: Sequelize.TEXT
       },
-      url: {
-        type: Sequelize.STRING
-      },
-      twitter_id: {
-        type: Sequelize.STRING
-      },
-      facebook_id: {
-        type: Sequelize.STRING
-      },
-      instagram_id: {
-        type: Sequelize.STRING
-      },
-      github_id: {
-        type: Sequelize.STRING
-      },
-      interesting_category_id: {
+      status:{
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      introduced_code: {
-        type: Sequelize.STRING
-      },
-      access_token: {
-        type: Sequelize.STRING
-      },
-      identification:{
-        type: Sequelize.BOOLEAN
+      contract_status:{
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       deleted_at: {
         allowNull: false,
@@ -66,9 +53,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }
+  )
   },
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
+    /**
+     * Add reverting commands here.
+     *
+     * Example:
+     * await queryInterface.dropTable('users');
+     */
   }
 };
