@@ -56,7 +56,6 @@ const relational_menter_view_count ={
     }] 
 };
 
-
 exports.show = (req, res) => {
     const id = req.params.id;
     user.findOne({
@@ -96,14 +95,23 @@ exports.show = (req, res) => {
         res.send(err)
     });
 }
+exports.nda_contract = (req, res) => {
+    const id = 1;
+    nda.findOne({ where: { user_id: id }, attributes: ['address'] })
+        .then((response) => {
+            res.json(response);
+        }).catch(err => {
+            res.send(err);
+        })
+}
 
-exports.getEmail =(req,res)=>{
+exports.getEmail = (req, res) => {
     // const is = Auth.id;
     const id = 2;
-    users.findOne({where: { id: id },attributes: ['email']})
-    .then((users)=>{
-        res.json(users)
-    }).catch(err =>{
-        res.send(err);
-    })
+    users.findOne({ where: { id: id }, attributes: ['email'] })
+        .then((users) => {
+            res.json(users)
+        }).catch(err => {
+            res.send(err);
+        })
 }
