@@ -17,7 +17,7 @@ router.put('/email', usersController.updateEmail);
 router.get('/profile', usersController.profile);
 
 //users/nda_contract
-router.get('/nda_contract', usersController.nda_contract);
+router.get('/nda_contract', usersController.getNdaContract);
 
 //users/{id}
 router.get('/:id',usersController.show);

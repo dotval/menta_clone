@@ -109,7 +109,7 @@ exports.profile = (req, res) => {
     });
 }
 
-exports.nda_contract = (req, res) => {
+exports.getNdaContract = (req, res) => {
     const id = 1;
     nda.findOne({ where: { user_id: id }, attributes: ['address'] })
         .then((response) => {
@@ -129,6 +129,7 @@ exports.updateEmail = (req, res) => {
         res.status(500).json({ message: err, })
     );
 }
+
 exports.getEmail = (req, res) => {
     // const is = Auth.id;
     const id = 2;
