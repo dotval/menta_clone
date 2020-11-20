@@ -10,6 +10,9 @@ router.get('/', function(req, res, next) {
 //users/email
 router.get('/email', usersController.getEmail);
 
+//users/profile
+router.get('/profile', usersController.profile);
+
 //users/nda_contract
 router.get('/nda_contract', usersController.nda_contract);
 
