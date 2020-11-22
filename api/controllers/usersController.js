@@ -56,7 +56,7 @@ const relational_menter_view_count ={
     }] 
 };
 
-exports.show = (req, res) => {
+exports.getUser = (req, res) => {
     const id = req.params.id;
     user.findOne({
         where: { id: id },
@@ -95,7 +95,7 @@ exports.show = (req, res) => {
         res.send(err)
     });
 }
-exports.profile = (req, res) => {
+exports.getProfile = (req, res) => {
     const id = 1;
     users.findOne({
         where: { id: id },
