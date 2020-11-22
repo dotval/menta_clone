@@ -10,11 +10,14 @@ router.get('/', function(req, res, next) {
 //users/email
 router.get('/email', usersController.getEmail);
 
+//users/email
+router.put('/email', usersController.updateEmail);
+
 //users/profile
 router.get('/profile', usersController.profile);
 
 //users/nda_contract
-router.get('/nda_contract', usersController.nda_contract);
+router.get('/nda_contract', usersController.getNdaContract);
 
 //users/{id}
 router.get('/:id',usersController.show);
