@@ -56,7 +56,7 @@ const relational_menter_view_count ={
     }] 
 };
 
-exports.show = (req, res) => {
+exports.getUser = (req, res) => {
     const id = req.params.id;
     user.findOne({
         where: { id: id },
@@ -95,7 +95,7 @@ exports.show = (req, res) => {
         res.send(err)
     });
 }
-exports.profile = (req, res) => {
+exports.getProfile = (req, res) => {
     const id = 1;
     users.findOne({
         where: { id: id },
@@ -140,3 +140,17 @@ exports.getEmail = (req, res) => {
             res.send(err);
         })
 }
+
+exports.updateProfile = (req, res) => {
+    const id = 1;
+    
+    try {
+        await users.update({ name: req.body.name, profile: req.body.profile, url: req.body.url, twitter_id: req.body.twitter_id, facebook_id: req.body.facebook_id, instagram_id: req.body.instagram_id, github_id: req.body.github_id }, { where: { id: id } });
+        await career.bulkCreate(req.body.career);
+        await skill.bulkCreate(req.body.skill);
+        res.json({ message: 'success' })
+    } catch (error) {
+        res.status(500).json({ message: error})
+    }
+}
+

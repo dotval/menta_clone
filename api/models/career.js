@@ -18,9 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     start_year:DataTypes.INTEGER,
     start_month:DataTypes.INTEGER,
     end_year:DataTypes.INTEGER,
-    end_mouth:DataTypes.INTEGER,
+    end_month:DataTypes.INTEGER,
     user_id:DataTypes.INTEGER,
-    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'career',

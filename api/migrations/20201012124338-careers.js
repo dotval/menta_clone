@@ -25,7 +25,7 @@ module.exports = {
       allowNull: false,
       type: Sequelize.INTEGER
     },
-    end_mouth :{
+    end_month :{
       allowNull: false,
       type: Sequelize.INTEGER
     },
@@ -34,7 +34,7 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     deleted_at: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.DATE
     },
     created_at: {
