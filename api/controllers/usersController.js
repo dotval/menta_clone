@@ -153,7 +153,7 @@ exports.updateProfile = (req, res) => {
     }
 }
 
-exports.patchNdaContract = (req, res) => {
+exports.putNdaContract = (req, res) => {
     const id = 1;
     const address =req.body.address;
     nda.update({address:address}, { where: { user_id: id } })
