@@ -1,20 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
-const db = require('../models/index');
+const plansController =require('../controllers/plansController');
 
 //プラン一覧の取得
-router.get('/', function(req, res, next) {
-  db.plan.findAll().then(function(results){
-    res.send(results);
-  });
-});
+router.get('/', plansController.getPlans);
 
 //プラン詳細の取得
-router.get('/:planId', function(req, res, next) {
-  db.plan.findByPk(req.params.planId).then(function(results){
-    res.send(results);
-  });
-});
+router.get('/:planId', plansController.getPlan);
 
 module.exports = router;
