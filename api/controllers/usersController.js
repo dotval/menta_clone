@@ -10,8 +10,8 @@ const follow = db.follow;
 const view_menter_count = db.view_menter_count;
 const review = db.review;
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-var rounds = bcrypt.genSaltSync(saltRounds);
+const SALT_ROUNDS = 10;
+const rounds = bcrypt.genSaltSync(SALT_ROUNDS);
 
 const relational_skill = {
     model: skill,
