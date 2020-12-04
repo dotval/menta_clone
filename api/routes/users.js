@@ -19,6 +19,12 @@ router.get('/profile', usersController.getProfile);
 //users/profile
 router.put('/profile', usersController.updateProfile);
 
+//users/profile
+router.put('/profile', usersController.updateProfile);
+
+//users/introduce
+router.get('/introduce',usersController.getIntroduceCode);
+
 //users/nda_contract
 router.get('/nda_contract', usersController.getNdaContract);
 

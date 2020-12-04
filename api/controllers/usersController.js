@@ -184,5 +184,10 @@ exports.updatePassword = (req, res) => {
 }
 
 exports.getIntroduceCode = (req,res) => {
-    return res.send('introcode')
+    const id = 1;
+    users.findOne({where: { id: id },attributes: ['introduced_code']}).then((response) => {
+        res.json(response);
+    }).catch(err => {
+        res.send(err)
+    });
 }
