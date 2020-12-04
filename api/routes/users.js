@@ -25,6 +25,9 @@ router.get('/nda_contract', usersController.getNdaContract);
 //users/nda_contract
 router.put('/nda_contract', usersController.putNdaContract);
 
+//users/password
+router.put('/password',usersController.updatePassword);
+
 //users/{id}
 router.get('/:id',usersController.getUser);
 

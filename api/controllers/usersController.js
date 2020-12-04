@@ -9,6 +9,9 @@ const plan = db.plan;
 const follow = db.follow;
 const view_menter_count = db.view_menter_count;
 const review = db.review;
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
+const rounds = bcrypt.genSaltSync(SALT_ROUNDS);
 
 const relational_skill = {
     model: skill,
@@ -155,12 +158,27 @@ exports.updateProfile = (req, res) => {
 
 exports.putNdaContract = (req, res) => {
     const id = 1;
-    const address =req.body.address;
-    nda.update({address:address}, { where: { user_id: id } })
-    .then(() => {
+    const address = req.body.address;
+    nda.update({ address: address }, { where: { user_id: id } })
+        .then(() => {
             res.json({ message: 'success' })
         }).catch(err =>
             res.status(500).json({ message: err, })
         );
 }
 
+exports.updatePassword = (req, res) => {
+    const id = 1;
+    const password = req.body.password;
+
+    bcrypt.hash(password, rounds).then((hashpassword) => {
+        users.update({ password: hashpassword }, { where: { id: id } }).then(() => {
+            res.json({ message: 'success' })
+        }).catch(err =>
+            res.status(500).json({ message: err, })
+        );
+    }).catch(err =>
+        res.status(500).json({ message: err, })
+    );
+
+}
