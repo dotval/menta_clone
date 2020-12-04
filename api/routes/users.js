@@ -19,9 +19,6 @@ router.get('/profile', usersController.getProfile);
 //users/profile
 router.put('/profile', usersController.updateProfile);
 
-//users/profile
-router.put('/profile', usersController.updateProfile);
-
 //users/introduce
 router.get('/introduce',usersController.getIntroduceCode);
 
