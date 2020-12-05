@@ -27,6 +27,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
+      introduced_code: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       url: {
         type: Sequelize.STRING
       },
@@ -45,9 +49,6 @@ module.exports = {
       interesting_category_id: {
         type: Sequelize.INTEGER
       },
-      introduced_code: {
-        type: Sequelize.STRING
-      },
       access_token: {
         type: Sequelize.STRING
       },
@@ -55,7 +56,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       deleted_at: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       created_at: {
